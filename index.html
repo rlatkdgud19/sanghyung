@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>크래프톤 웹사이트</title>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: 'Noto Sans KR', sans-serif; color:#333; background:#fff; }
+
+    /* 공통 */
+    a { text-decoration:none; color:inherit; }
+    img { max-width:100%; display:block; }
+    ul { list-style:none; }
+
+    /* 헤더 */
+    header {
+      width:100%;
+      border-bottom:1px solid #eee;
+      background:#fff;
+      position:sticky;
+      top:0;
+      z-index:100;
+    }
+    .header-inner {
+      max-width:1200px;
+      margin:0 auto;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:14px 20px;
+    }
+    .logo {
+      display:flex;
+      align-items:center;
+      font-weight:700;
+      font-size:22px;
+      color:black;
+    }
+    .gnb {
+      display:flex;
+      gap:24px;
+    }
+    .gnb a {
+      font-weight:500;
+      color:#333;
+      padding:6px 8px;
+    }
+    .gnb a:hover { color:#ffb100; }
+
+    /* 메인 비주얼 영역 */
+    .main-visual {
+      position:relative;
+      width:100%;
+      height:460px;
+      background:#000 url('/img/PUBG_Keyart_1920x1080\ 1.png') no-repeat center/cover;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:#fff;
+      text-align:center;
+  
+    }
+    .main-visual .text {
+      background:rgba(0,0,0,0.4);
+      padding:30px;
+      border-radius:10px;
+    }
+    .main-visual h1 { font-size:40px; margin-bottom:12px; }
+    .main-visual p { font-size:18px; opacity:0.9; }
+/* 전체 비주얼 영역 */
+.main-visual {
+  width: 100%;
+  height: 500px;
+  overflow: hidden;
+  position: relative;
+}
+
+/* 슬라이드 안의 이미지 크기 고정 */
+.main-visual img {
+  width: 100%;
+  height: 800px;
+  object-fit: cover;
+  display: block;
+}
+
+/* Swiper 기본 커스터마이징 */
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  color: #fff;
+  transition: 0.3s;
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  color: #ffcc00;
+}
+
+.swiper-pagination-bullet {
+  background: #fff;
+  opacity: 0.6;
+}
+
+.swiper-pagination-bullet-active {
+  background: #ffcc00;
+  opacity: 1;
+}
+
+    /* 뉴스/콘텐츠 섹션 */
+    .section {
+      max-width:1200px;
+      margin:80px auto;
+      padding:0 20px;
+    }
+    .section h2 {
+      font-size:28px;
+      font-weight:700;
+      margin-bottom:24px;
+      border-left:6px solid black;
+      padding-left:10px;
+    }
+
+    /* 메인 뉴스 */
+    .main-news {
+      display:grid;
+      grid-template-columns:2fr 1fr;
+      gap:20px;
+    }
+    .main-news .big-thumb {
+      background:#ddd url('/img/30.2_Lamborghini_KV\ 1.png') no-repeat center/cover;
+      border-radius:10px;
+      height:400px;
+    }
+    .main-news .side-list {
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+      
+    }
+    .side-item {
+      background:#f8f8f8;
+      padding:12px;
+      border-radius:8px;
+      display:flex;
+      gap:12px;
+      align-items:center;
+    }
+    .side-item img { width:100%; border-radius:6px; }
+    .side-item p { font-size:14px; line-height:1.4; }
+
+    /* 최신소식 */
+    .news-grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:20px;
+    }
+    .news-card {
+      border:1px solid #eee;
+      border-radius:10px;
+      overflow:hidden;
+      background:#fff;
+      transition:0.3s;
+    }
+    .news-card:hover { transform:translateY(-4px); box-shadow:0 4px 10px rgba(0,0,0,0.1); }
+    .news-card img { width:100%; height:160px; object-fit:cover; }
+    .news-card .info { padding:16px; }
+    .news-card h3 { font-size:16px; margin-bottom:8px; font-weight:600; }
+    .news-card p { font-size:14px; color:#666; }
+
+    /* 소셜 LIVE */
+    .social-list {
+      display:flex;
+      overflow-x:auto;
+      gap:16px;
+      scroll-snap-type:x mandatory;
+      padding-bottom:10px;
+    }
+    .social-item {
+      flex:0 0 260px;
+      scroll-snap-align:start;
+      border:1px solid #eee;
+      border-radius:10px;
+      background:#fff;
+      overflow:hidden;
+    }
+
+    /* 푸터 */
+    footer {
+      background:#222;
+      color:#aaa;
+      padding:40px 20px;
+      margin-top:80px;
+    }
+    .footer-inner {
+      max-width:1200px;
+      margin:0 auto;
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:space-between;
+      gap:20px;
+    }
+    .footer-left p { font-size:13px; line-height:1.6; }
+    .footer-right a {
+      color:#aaa;
+      margin-left:10px;
+      font-size:14px;
+    }
+    .footer-right a:hover { color:#000; }
+
+    @media (max-width:900px) {
+      .main-news { grid-template-columns:1fr; }
+      .header-inner { flex-direction:column; gap:8px; }
+    }
+    .swiper-button-next,
+.swiper-button-prev {
+  color: black;
+  transition: color 0.3s ease;
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  color: #ffff; /* 마우스 올렸을 때 색상 */
+}
+
+
+  </style>
+</head>
+<head>
+  ...
+  <!-- ✅ Swiper CSS CDN -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+  />
+</head>
+
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="logo">KRAFTON</div>
+      <nav class="gnb">
+        <a href="#">뉴스</a>
+        <a href="#">게임</a>
+        <a href="#">미디어</a>
+        <a href="#">파트너</a>
+        <a href="#">이벤트</a>
+      </nav>
+    </div>
+  </header>
+
+<section class="main-visual">
+  <div class="swiper mySwiper">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide">
+        <img src="img/34.2_8th_Anniversary_KV.jpg" alt="Slide 1">
+      </div>
+      <div class="swiper-slide">
+        <img src="/img/29.2_Erangel_Classic_KV.png" alt="Slide 2">
+      </div>
+      <div class="swiper-slide">
+        <img src="img/Season16_Monster_Chicken_Royale_Key_Art.jpg" alt="Slide 3">
+      </div>
+      <div class="swiper-slide">
+        <img src="/img/Season15_Free_to_Play_Key_Art_A.jpg" alt="Slide 4">
+      </div>
+    </div>
+
+    <!-- 🔹 네비게이션 버튼 -->
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+
+    <!-- 🔹 페이지네이션 (동그라미) -->
+    <div class="swiper-pagination"></div>
+  </div>
+  
+</section>
+
+<section class="section main-news-section">
+  <h2>주요 뉴스</h2>
+  <div class="main-news">
+    <div class="big-thumb"></div>
+
+    <div class="side-list">
+      <div class="side-item">
+        <div class="thumb-wrap">
+          <img src="img/Frame2.png" alt="">
+        </div>
+        <p>새롭게 개편한 VIKENDI 로 돌아가세요!</p>
+      </div>
+
+      <div class="side-item">
+        <div class="thumb-wrap">
+          <img src="img/Frame3.png" alt="">
+        </div>
+        <p>CONSOLE 플랫폼에서의 안티치트 대응 현황 안내</p>
+      </div>
+
+      <div class="side-item">
+        <div class="thumb-wrap">
+          <img src="img/Frame4.png" alt="">
+        </div>
+        <p>PUBG:BATTLEGROUNDS 주간 제재 현황 안내</p>
+      </div>
+           
+      <div class="side-item">
+        <div class="thumb-wrap">
+          <img src="img/Frame5.png" alt="">
+        </div>
+        <p>PUBG X NEWJEANS 
+콜라보레이션</p>
+      </div>
+    </div>
+  </div>
+</section>
+  <section class="section news-section">
+    <h2>최신 소식</h2>
+    <div class="news-grid">
+      <div class="news-card">
+        <img src="/img/Fbp5iMB3.jpg" alt="">
+        <div class="info">
+          <h3>이벤트</h3>
+          <p>특별 보급 - 2025년 9월</p>
+        </div>
+      </div>
+      <div class="news-card">
+        <img src="/img/Rectangle34.png" alt="">
+        <div class="info">
+          <h3>이벤트</h3>
+          <p>특별 보급 - 2025년 8월</p>
+        </div>
+      </div>
+      <div class="news-card">
+        <img src="/img/Rectangle35.png" alt="">
+        <div class="info">
+          <h3>이벤트</h3>
+          <p>특별 보급 - 2025년 7월</p>
+        </div>
+      </div>
+      <div class="news-card">
+        <img src="/img/Rectangle36.png" alt="">
+        <div class="info">
+          <h3>이벤트</h3>
+          <p>특별 보급 - 2025년 6월</p>
+        </div>
+      </div>
+            <div class="news-card">
+        <img src="/img/Rectangle41.png" alt="">
+        <div class="info">
+          <h3>이벤트</h3>
+          <p>특별 보급 - 2025년 5월</p>
+        </div>
+      </div>
+      <div class="news-card">
+        <img src="img/Rectangle42.png" alt="">
+        <div class="info">
+          <h3>신규 아이템</h3>
+          <p>여름 감성으로 채우는 스타일과 공간
+(V0.3.0 업데이트)</p>
+        </div>
+      </div>
+      <div class="news-card">
+        <img src="img/Rectangle43.png" alt="">
+        <div class="info">
+          <h3>신규 아이템</h3>
+          <p>차하야의 여유를 담은 스타일과 공간
+(IMZOI: 섬으로 떠나요)</p>
+        </div>
+      </div>
+      <div class="news-card">
+        <img src="img/Rectangle44.png" alt="">
+        <div class="info">
+          <h3>이벤트</h3>
+          <p>INZOI MAC APP STORE 
+출시 기념 이벤트</p>
+        </div>
+      </div>
+            <div class="news-card">
+        <img src="img/Rectangle49.png" alt="">
+        <div class="info">
+          <h3>이벤트</h3>
+          <p>INZOI X CURSEFORGE 모딩 공모전 개최 안내</p>
+        </div>
+      </div>
+      <div class="news-card">
+        <img src="img/Rectangle50.png" alt="">
+        <div class="info">
+          <h3>이벤트</h3>
+          <p>INZOI X CONNECT 의류 모드 디자인 콘테스트 : 
+EVERY STYLE STATS WITH YOU 안내</p>
+        </div>
+      </div>
+      <div class="news-card">
+        <img src="img/Rectangle51.png" alt="">
+        <div class="info">
+          <h3>이벤트</h3>
+          <p>INZOI: CHARACTER STUDIO와 함께하는 특별 선물 이벤트! (8/23 추가 안내)</p>
+        </div>
+      </div>
+      <div class="news-card">
+        <img src="img/Rectangle52.png" alt="">
+        <div class="info">
+          <h3>이벤트</h3>
+          <p>친구 초대 이벤트 보상 지급 관련 문제</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section social-section">
+    <h2>소셜 LIVE</h2>
+    <div class="social-list">
+      <div class="social-item"><img src="https://via.placeholder.com/260x200?text=LIVE+1" alt=""></div>
+      <div class="social-item"><img src="https://via.placeholder.com/260x200?text=LIVE+2" alt=""></div>
+      <div class="social-item"><img src="https://via.placeholder.com/260x200?text=LIVE+3" alt=""></div>
+      <div class="social-item"><img src="https://via.placeholder.com/260x200?text=LIVE+4" alt=""></div>
+    </div>
+     <div class="news-grid">
+      <div class="news-card">
+        <img src="/img/위너위너치킨디너.png" alt="">
+        <div class="info">
+          <h3>NEWS</h3>
+          <p>크래프톤, 펍지 성수에서 ‘테이스티성수 
+WWCD 치맥파티’ 개최</p>
+        </div>
+      </div>
+      <div class="news-card">
+        <img src="/img/Rectangle60.png" alt="">
+        <div class="info">
+          <h3>NEWS</h3>
+          <p>크래프톤, ‘딩컴’ 닌텐도 스위치 출시
+확정 및 사전 판매 시작</p>
+        </div>
+      </div>
+      <div class="news-card">
+        <img src="/img/Rectangle60(1).png" alt="">
+        <div class="info">
+          <h3>NEWS</h3>
+          <p>PUBG X G-DRAGON 메인 트레일러 : 
+PUBG 콜라보레이션</p>
+        </div>
+      </div>
+      <div class="news-card">
+        <img src="/img/Rectangle60(2).png" alt="">
+        <div class="info">
+          <h3>NEWS</h3>
+          <p>크래프톤, 고등학생 대상 재능기부 프로그램
+‘BETTER GROUND HIGH SCHOOL’ 성료</p>
+        </div>
+      </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-left">
+        <p>KRAFTON <br>크래프톤 게임 미디어 허브<br>파트너 크리에이터</p>
+      </div>
+      <div class="footer-right">
+        <a href="#">이용약관</a>
+        <a href="#">개인정보처리방침</a>
+        <a href="#">고객센터</a>
+      </div>
+    </div>
+  </footer>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<script>
+  const swiper = new Swiper(".mySwiper", {
+    loop: true,
+    autoplay: {
+      delay: 4000,
+      disableOnInteraction: false,
+    },
+    pagination: {
+      el: ".swiper-pagination",
+      clickable: true,
+    },
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
+    },
+    effect: "fade",
+    speed: 1000
+  });
+</script>
+</body>
+</body>
+</html>
